@@ -1,0 +1,97 @@
+@use '../../../assets/styles/variables' as *;
+
+.todo-items {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  border-radius: inherit;
+  overflow: hidden;
+  .todo-item {
+    // height: 3.8rem;
+    background-color: var(--form-bg);
+    padding: 18px 0;
+    display: flex;
+    border-bottom: 1.5px solid var(--accent3);
+    .check {
+      width: 65px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      .check-mark {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 23px;
+        height: 23px;
+        $border: 2px;
+        background: var(--form-bg);
+        background-clip: padding-box;
+        border: $border solid transparent;
+        border-radius: 50%;
+        cursor: pointer;
+        img {
+          display: none;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          z-index: -1;
+          margin: -$border;
+          border-radius: inherit;
+          background: var(--accent3);
+        }
+        @media (hover: hover) and (pointer: fine) {
+          &:hover::before {
+            background: linear-gradient(130deg, $check-bg-from, $check-bg-to);
+          }
+        }
+      }
+    }
+    .todo-text {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      color: var(--text);
+      font-family: 'Josefin Sans', sans-serif;
+      cursor: pointer;
+    }
+    &.checked {
+      .check-mark {
+        background: linear-gradient(130deg, $check-bg-from, $check-bg-to);
+        border: none;
+        img {
+          display: block;
+        }
+        &::before {
+          content: none;
+        }
+      }
+      .todo-text {
+        color: var(--strikethrough);
+        text-decoration: line-through;
+      }
+    }
+    .remove-todo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      visibility: hidden;
+      cursor: pointer;
+      @media (max-width: 26em) {
+        visibility: visible;
+      }
+    }
+    &:hover {
+      .remove-todo {
+        visibility: visible;
+      }
+    }
+  }
+}

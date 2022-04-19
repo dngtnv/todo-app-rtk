@@ -1,0 +1,185 @@
+@use '../styles/variables' as *;
+:root {
+  --bright-blue: #{$bright-blue};
+
+  --bg-dark: #{$vd-blue};
+  --accent1-dark: #{$vdd-blue};
+  --text1-dark: #{$light-blue1};
+  --text-dark-hover: #{$light-blue2};
+  --accent2-dark: #{$dg-blue2};
+  --text2-dark: #{$vdg-blue1};
+  --accent3-dark: #{$vdg-blue2};
+
+  --bg-light: #{$light-gray};
+  --accent1-light: #{$white};
+  --text1-light: #{$vdg-blue};
+  --accent2-light: #{$lg-blue};
+  --text3-light: #{$dg-blue1};
+  --accent3-light: #{$vlg-blue};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--bg-dark);
+    --form-bg: var(--accent1-dark);
+    --text: var(--text1-dark);
+    --text-hover: var(--text-dark-hover);
+    --accent3: var(--accent3-dark);
+    --text2: var(--text2-dark);
+    --text-hover: var(--text-dark-hover);
+    --strikethrough: var(--accent2-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--bg-light);
+    --form-bg: var(--accent1-light);
+    --text: var(--text1-light);
+    --text-hover: var(--text1-light);
+    --accent3: var(--accent3-light);
+    --text2: var(--text3-light);
+    --text-hover: var(--text1-light);
+    --strikethrough: var(--accent2-light);
+  }
+}
+[data-theme='dark'] {
+  --bg: var(--bg-dark);
+  --form-bg: var(--accent1-dark);
+  --text: var(--text1-dark);
+  --text-hover: var(--text-dark-hover);
+  --accent3: var(--accent3-dark);
+  --text2: var(--text2-dark);
+  --text-hover: var(--text-dark-hover);
+  --strikethrough: var(--accent2-dark);
+}
+[data-theme='light'] {
+  --bg: var(--bg-light);
+  --form-bg: var(--accent1-light);
+  --text: var(--text1-light);
+  --text-hover: var(--text1-light);
+  --accent3: var(--accent3-light);
+  --text2: var(--text3-light);
+  --text-hover: var(--text1-light);
+  --strikethrough: var(--accent2-light);
+}
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: var(--bg);
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+.container {
+  .cover-image {
+    position: absolute;
+    height: 305px;
+    width: 100%;
+    z-index: -1;
+    @media (max-width: 26em) {
+      height: 260px;
+    }
+  }
+  .cover-image[cover-theme='dark'] {
+    background: url('../images/bg-desktop-dark.jpg') no-repeat center / cover;
+    @media (max-width: 26em) {
+      background: url('../images/bg-mobile-dark.jpg') no-repeat left / cover;
+    }
+  }
+  .cover-image[cover-theme='light'] {
+    background: url('../images/bg-desktop-light.jpg') no-repeat center/cover;
+    @media (max-width: 26em) {
+      background: url('../images/bg-mobile-light.jpg') no-repeat left/cover;
+    }
+  }
+  .main {
+    width: min(87%, 36rem);
+    margin: 0 auto;
+    padding-top: 3.5rem;
+    min-width: 15rem;
+    @media (max-width: 26em) {
+      padding-top: 2.3rem;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .title {
+        color: hsl(0, 0%, 100%);
+        h1 {
+          letter-spacing: 15px;
+          @media (max-width: 26em) {
+            font-size: 34px;
+            letter-spacing: 14px;
+          }
+        }
+      }
+      .theme {
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+    .new-todo {
+      background-color: var(--form-bg);
+      height: 3.8rem;
+      border-radius: 6px;
+      display: flex;
+      margin-top: 1.5rem;
+      .check {
+        width: 65px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .check-mark {
+          width: 23px;
+          height: 23px;
+          border: 2px solid var(--accent3);
+          border-radius: 50%;
+        }
+      }
+      .todo-input {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        form {
+          flex-grow: inherit;
+          input {
+            width: 100%;
+            padding: 10px 15px 10px 0;
+            outline: none;
+            border: none;
+            background-color: var(--form-bg);
+            font-family: inherit;
+            font-size: 18px;
+            color: var(--text);
+            caret-color: var(--bright-blue);
+          }
+        }
+      }
+    }
+    .notice {
+      height: 4rem;
+      color: var(--text2);
+      font-size: 14px;
+      text-align: center;
+      margin-top: 3rem;
+      @media (max-width: 26em) {
+        margin-top: 8rem;
+      }
+    }
+  }
+}
