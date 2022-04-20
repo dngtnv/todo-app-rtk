@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import { filterChange } from '../../redux/actions.js';
 import Filters from './Filters';
+import filterSlice from './Filters/filterSlice.js';
 import './index.scss';
 import Todo from './Todo';
 
@@ -13,7 +13,7 @@ export default function TodoList({ todoList, handleOnDragEnd }) {
   const countTodoLeft = todoList.filter(todo => todo.completed === false).length;
 
   useEffect(() => {
-    dispatch(filterChange(filter));
+    dispatch(filterSlice.actions.filterChange(filter));
   }, [filter, dispatch]);
 
   const filterTodo = filter => {

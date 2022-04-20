@@ -5,7 +5,7 @@ import './App.scss';
 import moonIcon from './assets/images/icon-moon.svg';
 import sunIcon from './assets/images/icon-sun.svg';
 import TodoList from './components/TodoList';
-import { addTodo, replaceList } from './redux/actions';
+import todosSlice from './components/TodoList/todosSlice.js';
 import { todoSelector } from './redux/selectors';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const storagedTodoList = localStorage.getItem('TODO_LIST');
     if (storagedTodoList) {
-      dispatch(replaceList(JSON.parse(storagedTodoList)));
+      dispatch(todosSlice.actions.replaceList(JSON.parse(storagedTodoList)));
     }
   }, [dispatch]);
   useEffect(() => {
@@ -35,7 +35,7 @@ function App() {
         } else {
           e.preventDefault();
           dispatch(
-            addTodo({
+            todosSlice.actions.addTodo({
               id: id(),
               name: todoInput,
               completed: false,
@@ -65,7 +65,7 @@ function App() {
     const items = Array.from(todoList);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-    dispatch(replaceList(items));
+    dispatch(todosSlice.actions.replaceList(items));
   };
   return (
     <div className="container">

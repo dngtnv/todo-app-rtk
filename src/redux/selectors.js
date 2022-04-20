@@ -1,6 +1,6 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 export const todoListSelector = state => state.todoList;
-export const filterChange = state => state.filter;
+export const filterChange = state => state.filter.status;
 
 export const todoSelector = createSelector(todoListSelector, filterChange, (todoList, filter) => {
   return todoList.filter(todo => {
