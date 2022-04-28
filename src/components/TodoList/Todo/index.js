@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import checkIcon from '../../../assets/images/icon-check.svg';
 import crossIcon from '../../../assets/images/icon-cross.svg';
-import todosSlice from '../todosSlice.js';
+import { deleteTodos, updateTodos } from '../todosSlice.js';
 import './index.scss';
 
 export default function Todo({ todo, provided, innerRef }) {
@@ -10,10 +10,10 @@ export default function Todo({ todo, provided, innerRef }) {
   const [checked, setChecked] = useState(todo.completed);
   const toggleCheckBox = () => {
     setChecked(!checked);
-    dispatch(todosSlice.actions.toggleTodoStatus(todo.id));
+    dispatch(updateTodos(todo));
   };
   const handleRemoveTodo = () => {
-    dispatch(todosSlice.actions.removeTodo(todo.id));
+    dispatch(deleteTodos(todo));
   };
   return (
     <li className={`todo-item ${checked === true ? 'checked' : ''}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={innerRef}>

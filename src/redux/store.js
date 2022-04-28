@@ -7,6 +7,10 @@ const store = configureStore({
     todoList: todosSlice.reducer,
     filter: filterSlice.reducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

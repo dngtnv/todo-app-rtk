@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import todosSlice from '../todosSlice.js';
+import { clearCompleteds } from '../todosSlice.js';
 import './index.scss';
 
 export default function Info({ filter, filterTodo, countTodoLeft }) {
   const dispatch = useDispatch();
   const onClearCompleted = () => {
-    dispatch(todosSlice.actions.clearCompleted());
+    dispatch(clearCompleteds());
   };
   return (
     <div className="todo-items-info">

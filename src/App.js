@@ -1,11 +1,11 @@
+import { onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as id } from 'uuid';
 import './App.scss';
 import moonIcon from './assets/images/icon-moon.svg';
 import sunIcon from './assets/images/icon-sun.svg';
 import TodoList from './components/TodoList';
-import todosSlice from './components/TodoList/todosSlice.js';
+import todosSlice, { addTodos, todosColRef } from './components/TodoList/todosSlice.js';
 import { todoSelector } from './redux/selectors';
 
 function App() {
@@ -14,14 +14,12 @@ function App() {
   const todoList = useSelector(todoSelector);
 
   useEffect(() => {
-    const storagedTodoList = localStorage.getItem('TODO_LIST');
-    if (storagedTodoList) {
-      dispatch(todosSlice.actions.replaceList(JSON.parse(storagedTodoList)));
-    }
-  }, [dispatch]);
-  useEffect(() => {
-    localStorage.setItem('TODO_LIST', JSON.stringify(todoList));
-  }, [todoList]);
+    const q = query(todosColRef, orderBy('createAt', 'desc'));
+    onSnapshot(q, snapshot => {
+      const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      dispatch(todosSlice.actions.replaceList(data));
+    });
+  }, []);
 
   const onTodoInputChange = useCallback(e => {
     setTodoInput(e.target.value);
@@ -35,8 +33,7 @@ function App() {
         } else {
           e.preventDefault();
           dispatch(
-            todosSlice.actions.addTodo({
-              id: id(),
+            addTodos({
               name: todoInput,
               completed: false,
             })
