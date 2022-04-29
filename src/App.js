@@ -19,7 +19,7 @@ function App() {
       const data = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       dispatch(todosSlice.actions.replaceList(data));
     });
-  }, []);
+  }, [dispatch]);
 
   const onTodoInputChange = useCallback(e => {
     setTodoInput(e.target.value);
@@ -57,13 +57,6 @@ function App() {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   };
-  const handleOnDragEnd = result => {
-    if (!result.destination) return;
-    const items = Array.from(todoList);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    dispatch(todosSlice.actions.replaceList(items));
-  };
   return (
     <div className="container">
       <div className="cover-image" cover-theme={theme}></div>
@@ -88,7 +81,7 @@ function App() {
             </form>
           </div>
         </div>
-        <TodoList todoList={todoList} handleOnDragEnd={handleOnDragEnd} />
+        <TodoList todoList={todoList} />
         <div className="notice">Drag and drop to reorder list</div>
       </div>
     </div>

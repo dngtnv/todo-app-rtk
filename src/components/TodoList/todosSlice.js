@@ -53,7 +53,6 @@ export const addTodos = createAsyncThunk('todos/addNewTodo', async newTodo => {
 export const updateTodos = createAsyncThunk('todos/updateTodo', async todo => {
   const docRef = doc(db, 'todos', todo.id);
   await updateDoc(docRef, { completed: !todo.completed });
-  // return todo;
 });
 export const deleteTodos = createAsyncThunk('todos/deleteTodo', async todo => {
   const docRef = doc(db, 'todos', todo.id);

@@ -172,6 +172,7 @@ body {
       }
     }
     .notice {
+      visibility: hidden;
       height: 4rem;
       color: var(--text2);
       font-size: 14px;

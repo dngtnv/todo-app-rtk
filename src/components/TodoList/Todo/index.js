@@ -5,7 +5,7 @@ import crossIcon from '../../../assets/images/icon-cross.svg';
 import { deleteTodos, updateTodos } from '../todosSlice.js';
 import './index.scss';
 
-export default function Todo({ todo, provided, innerRef }) {
+export default function Todo({ todo }) {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(todo.completed);
   const toggleCheckBox = () => {
@@ -16,7 +16,7 @@ export default function Todo({ todo, provided, innerRef }) {
     dispatch(deleteTodos(todo));
   };
   return (
-    <li className={`todo-item ${checked === true ? 'checked' : ''}`} {...provided.draggableProps} {...provided.dragHandleProps} ref={innerRef}>
+    <li className={`todo-item ${checked === true ? 'checked' : ''}`}>
       <div className="check">
         <div className="check-mark" onClick={toggleCheckBox}>
           <img src={checkIcon} alt="check" />

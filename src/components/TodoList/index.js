@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
 import Filters from './Filters';
 import filterSlice from './Filters/filterSlice.js';
 import './index.scss';
 import Todo from './Todo';
 
-export default function TodoList({ todoList, handleOnDragEnd }) {
+export default function TodoList({ todoList }) {
   const [filter, setFilter] = useState('all');
   const dispatch = useDispatch();
 
@@ -33,24 +32,11 @@ export default function TodoList({ todoList, handleOnDragEnd }) {
   };
   return (
     <div className="todo-list-wrapper">
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="todos">
-          {provided => {
-            return (
-              <ul className="todo-items" {...provided.droppableProps} ref={provided.innerRef}>
-                {todoList.map((todo, index) => (
-                  <Draggable key={todo.id} draggableId={todo.id} index={index} isDragDisabled={filter === 'all' ? false : true}>
-                    {provided => {
-                      return <Todo todo={todo} provided={provided} innerRef={provided.innerRef} />;
-                    }}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            );
-          }}
-        </Droppable>
-      </DragDropContext>
+      <ul className="todo-items">
+        {todoList.map((todo, index) => (
+          <Todo key={todo.id} todo={todo} />
+        ))}
+      </ul>
       <Filters countTodoLeft={countTodoLeft} filter={filter} filterTodo={filterTodo} />
     </div>
   );
