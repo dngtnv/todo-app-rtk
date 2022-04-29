@@ -5,7 +5,7 @@ import { db } from '../../firebase/config.js';
 export const todosColRef = collection(db, 'todos');
 const todosSlice = createSlice({
   name: 'todoList',
-  initialState: [], //{ status: 'idle', todos: [] }
+  initialState: [],
   reducers: {
     addTodo: (state, action) => {
       state.splice(0, 0, action.payload);
@@ -34,9 +34,6 @@ const todosSlice = createSlice({
       .addCase(updateTodos.rejected, (state, action) => {
         console.log(`[update] failure`);
       });
-    // .addCase(deleteTodos.fulfilled, (state, action) => {
-    //   console.log('deleted');
-    // });
     // .addCase(getTodos.fulfilled, (state, action) => {
     //   return (state = action.payload);
     //   // state.status = 'idle';

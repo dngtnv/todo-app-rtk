@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export default createSlice({
+const filterSlice = createSlice({
   name: 'filter',
   initialState: {
     status: 'all',
@@ -11,3 +11,4 @@ export default createSlice({
     },
   },
 });
+export default filterSlice;

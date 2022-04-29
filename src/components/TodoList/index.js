@@ -33,7 +33,7 @@ export default function TodoList({ todoList }) {
   return (
     <div className="todo-list-wrapper">
       <ul className="todo-items">
-        {todoList.map((todo, index) => (
+        {todoList.map(todo => (
           <Todo key={todo.id} todo={todo} />
         ))}
       </ul>
